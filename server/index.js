@@ -79,6 +79,8 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT} `);
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Local Access: http://localhost:${PORT}`);
+    console.log(`Network Access: Check your local IP (e.g., http://192.168.x.x:${PORT})`);
 });

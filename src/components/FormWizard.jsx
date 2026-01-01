@@ -185,7 +185,11 @@ const FormWizard = () => {
                     setCurrentStep(prev => prev + 1);
                 } catch (err) {
                     console.error('Submission Error:', err);
-                    setSubmitError(`Failed to save data: ${err.message}`);
+                    let finalMsg = err.message;
+                    if (err.message.toLowerCase().includes('failed to fetch')) {
+                        finalMsg = "Connection Refused. Is the backend server running and allowed through your firewall?";
+                    }
+                    setSubmitError(`Failed to save data: ${finalMsg}`);
                 } finally {
                     setIsSubmitting(false);
                 }
