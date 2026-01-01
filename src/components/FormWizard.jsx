@@ -168,7 +168,9 @@ const FormWizard = () => {
                         institute: { instituteName: formData.instituteName }
                     };
 
-                    const response = await fetch('http://localhost:5000/api/register', {
+                    // Dynamically point to the server. If on the same network, localhost becomes the server's IP.
+                    const serverUrl = `http://${window.location.hostname}:5000/api/register`;
+                    const response = await fetch(serverUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
