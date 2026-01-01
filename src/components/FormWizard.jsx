@@ -176,12 +176,16 @@ const FormWizard = () => {
                         body: JSON.stringify(payload)
                     });
 
-                    if (!response.ok) throw new Error('Failed to submit');
+                    const data = await response.json();
+
+                    if (!response.ok) {
+                        throw new Error(data.details || data.error || 'Failed to submit');
+                    }
 
                     setCurrentStep(prev => prev + 1);
                 } catch (err) {
-                    console.error(err);
-                    setSubmitError('Failed to save data. Please try again.');
+                    console.error('Submission Error:', err);
+                    setSubmitError(`Failed to save data: ${err.message}`);
                 } finally {
                     setIsSubmitting(false);
                 }
