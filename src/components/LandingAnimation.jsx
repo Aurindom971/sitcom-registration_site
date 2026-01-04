@@ -49,29 +49,192 @@ const LandingAnimation = ({ onComplete }) => {
             zIndex: 9999,
             overflow: 'hidden'
         }}>
-            {/* VHS Tracking Lines */}
-            {[...Array(5)].map((_, i) => (
+            {/* Sound Bar Visualizer Background */}
+            <div style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'flex-end',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '0 20px',
+                zIndex: 1,
+                overflow: 'hidden'
+            }}>
+                {[...Array(40)].map((_, i) => (
+                    <motion.div
+                        key={`bar-${i}`}
+                        animate={{
+                            height: [
+                                `${10 + Math.random() * 15}%`,
+                                `${30 + Math.random() * 40}%`,
+                                `${15 + Math.random() * 25}%`,
+                                `${40 + Math.random() * 50}%`,
+                                `${10 + Math.random() * 15}%`,
+                            ],
+                            opacity: [0.3, 0.7, 0.5, 0.8, 0.3]
+                        }}
+                        transition={{
+                            duration: 1.2 + Math.random() * 1.5,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                            delay: i * 0.05
+                        }}
+                        style={{
+                            width: '100%',
+                            maxWidth: '20px',
+                            minHeight: '5%',
+                            background: i % 3 === 0
+                                ? 'linear-gradient(to top, rgba(0, 243, 255, 0.6), rgba(0, 243, 255, 0.2))'
+                                : i % 3 === 1
+                                    ? 'linear-gradient(to top, rgba(255, 0, 255, 0.6), rgba(255, 0, 255, 0.2))'
+                                    : 'linear-gradient(to top, rgba(147, 51, 234, 0.6), rgba(147, 51, 234, 0.2))',
+                            borderRadius: '4px 4px 0 0',
+                            boxShadow: i % 3 === 0
+                                ? '0 0 20px rgba(0, 243, 255, 0.4)'
+                                : i % 3 === 1
+                                    ? '0 0 20px rgba(255, 0, 255, 0.4)'
+                                    : '0 0 20px rgba(147, 51, 234, 0.4)',
+                            filter: 'blur(1px)'
+                        }}
+                    />
+                ))}
+            </div>
+
+            {/* Ambient Glow Behind Bars */}
+            <motion.div
+                animate={{
+                    opacity: [0.2, 0.4, 0.2],
+                    scale: [1, 1.1, 1]
+                }}
+                transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                }}
+                style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '60%',
+                    background: 'radial-gradient(ellipse at bottom, rgba(0, 243, 255, 0.15) 0%, rgba(255, 0, 255, 0.1) 40%, transparent 70%)',
+                    filter: 'blur(60px)',
+                    zIndex: 0
+                }}
+            />
+
+            {/* Floating Particles */}
+            {[...Array(15)].map((_, i) => (
                 <motion.div
-                    key={`vhs-${i}`}
+                    key={`particle-${i}`}
                     animate={{
-                        top: [`${i * 20}%`, `${(i * 20 + 100) % 100}%`],
-                        opacity: [0, 0.1, 0]
+                        y: [0, -100 - Math.random() * 200],
+                        x: [0, (Math.random() - 0.5) * 100],
+                        opacity: [0, 0.6, 0],
+                        scale: [0, 1, 0]
                     }}
                     transition={{
-                        duration: 2 + i * 0.5,
+                        duration: 3 + Math.random() * 3,
                         repeat: Infinity,
-                        ease: 'linear'
+                        delay: i * 0.4,
+                        ease: 'easeOut'
                     }}
                     style={{
                         position: 'absolute',
-                        left: 0,
-                        width: '100%',
-                        height: '2px',
-                        background: 'rgba(0, 0, 0, 0.3)',
-                        transform: `translateX(${vhsOffset}px)`
+                        bottom: '0%',
+                        left: `${(i / 15) * 100}%`,
+                        width: '4px',
+                        height: '4px',
+                        borderRadius: '50%',
+                        background: i % 2 === 0 ? '#00f3ff' : '#ff00ff',
+                        boxShadow: `0 0 10px ${i % 2 === 0 ? '#00f3ff' : '#ff00ff'}`,
+                        zIndex: 2
                     }}
                 />
             ))}
+
+
+            {/* Sound Bar Visualizer at Top */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                gap: '8px',
+                padding: '0 20px',
+                zIndex: 1,
+                overflow: 'hidden'
+            }}>
+                {[...Array(40)].map((_, i) => (
+                    <motion.div
+                        key={`bar-top-${i}`}
+                        animate={{
+                            height: [
+                                `${10 + Math.random() * 15}%`,
+                                `${30 + Math.random() * 40}%`,
+                                `${15 + Math.random() * 25}%`,
+                                `${40 + Math.random() * 50}%`,
+                                `${10 + Math.random() * 15}%`,
+                            ],
+                            opacity: [0.3, 0.7, 0.5, 0.8, 0.3]
+                        }}
+                        transition={{
+                            duration: 1.2 + Math.random() * 1.5,
+                            repeat: Infinity,
+                            ease: 'easeInOut',
+                            delay: i * 0.05
+                        }}
+                        style={{
+                            width: '100%',
+                            maxWidth: '20px',
+                            minHeight: '5%',
+                            background: i % 3 === 0
+                                ? 'linear-gradient(to bottom, rgba(0, 243, 255, 0.6), rgba(0, 243, 255, 0.2))'
+                                : i % 3 === 1
+                                    ? 'linear-gradient(to bottom, rgba(255, 0, 255, 0.6), rgba(255, 0, 255, 0.2))'
+                                    : 'linear-gradient(to bottom, rgba(147, 51, 234, 0.6), rgba(147, 51, 234, 0.2))',
+                            borderRadius: '0 0 4px 4px',
+                            boxShadow: i % 3 === 0
+                                ? '0 0 20px rgba(0, 243, 255, 0.4)'
+                                : i % 3 === 1
+                                    ? '0 0 20px rgba(255, 0, 255, 0.4)'
+                                    : '0 0 20px rgba(147, 51, 234, 0.4)',
+                            filter: 'blur(1px)'
+                        }}
+                    />
+                ))}
+            </div>
+
+            {/* Ambient Glow at Top */}
+            <motion.div
+                animate={{
+                    opacity: [0.2, 0.4, 0.2],
+                    scale: [1, 1.1, 1]
+                }}
+                transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                }}
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '60%',
+                    background: 'radial-gradient(ellipse at top, rgba(0, 243, 255, 0.15) 0%, rgba(255, 0, 255, 0.1) 40%, transparent 70%)',
+                    filter: 'blur(60px)',
+                    zIndex: 0
+                }}
+            />
 
             {/* Holographic overlay */}
             <motion.div
@@ -112,13 +275,6 @@ const LandingAnimation = ({ onComplete }) => {
                 />
             )}
 
-            {/* Animated scanlines */}
-            <div className="scanline" />
-            <motion.div
-                className="scanline"
-                animate={{ top: ['0%', '100%'] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'linear', delay: 1.5 }}
-            />
 
             {/* Grid overlay */}
             <motion.div

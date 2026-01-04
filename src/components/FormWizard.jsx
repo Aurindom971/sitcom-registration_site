@@ -126,7 +126,18 @@ const FormWizard = () => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'participationMode' || name === 'teamName' || name === 'instituteName2' || name === 'instituteName') {
+        if (name === 'participationMode') {
+            // Reset form when switching between Solo and Duo
+            setFormData({
+                participationMode: value,
+                teamName: '',
+                participants: [{ ...INITIAL_PARTICIPANT }, { ...INITIAL_PARTICIPANT }],
+                instituteName: '',
+                instituteName2: ''
+            });
+            // Reset step index to participation mode selection (Step 0)
+            setCurrentStepIndex(0);
+        } else if (name === 'teamName' || name === 'instituteName2' || name === 'instituteName') {
             setFormData(prev => ({ ...prev, [name]: value }));
         } else {
             setFormData(prev => {
