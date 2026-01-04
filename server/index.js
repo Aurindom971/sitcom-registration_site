@@ -39,23 +39,20 @@ mongoose.connect(process.env.MONGODB_URI)
 
 // Routes
 const registrationSchema = new mongoose.Schema({
-    personal: {
+    participationMode: { type: String, enum: ['solo', 'duo'], default: 'solo' },
+    teamName: String,
+    participants: [{
         name: String,
         age: Number,
-    },
-    contact: {
         email: String,
         phone: String,
-    },
-    academic: {
         batch: String,
         enrollmentNo: String,
         degree: String,
-        course: String,
-    },
-    institute: {
-        instituteName: String,
-    },
+        course: String
+    }],
+    instituteName: String,
+    instituteName2: String,
     submittedAt: { type: Date, default: Date.now }
 });
 

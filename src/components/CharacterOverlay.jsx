@@ -36,13 +36,12 @@ const CharacterOverlay = ({ character, position, delay = 0, compact = false }) =
     // Removed absolute positioning for centered variants to allow stacking
     if (isCenter || isLargeCenter) {
         posStyle = {
-            width: isLargeCenter ? '240px' : '180px',
+            width: isLargeCenter ? '260px' : '200px', // Moderate from 320/240
             margin: '0 auto'
         };
     } else {
-        // Fallback or other specific positions (though we are moving to centering all)
         posStyle = {
-            width: '160px',
+            width: '180px', // Moderate from 200
             margin: '0 auto'
         };
     }
@@ -61,33 +60,33 @@ const CharacterOverlay = ({ character, position, delay = 0, compact = false }) =
                 flexDirection: 'column',
                 alignItems: 'center',
                 pointerEvents: 'none',
-                marginBottom: isLargeCenter ? '30px' : '20px'
+                marginBottom: isLargeCenter ? '25px' : '15px' // Reduced from 35/25
             }}
         >
             <div className="speech-bubble" style={{
                 background: 'white',
-                padding: compact ? '4px 8px' : '12px 16px', // Even tighter padding
-                borderRadius: '15px',
-                marginBottom: compact ? '-6px' : '8px', // Negative margin to pull them together
-                boxShadow: '1px 1px 10px rgba(0,0,0,0.1)',
-                maxWidth: isLargeCenter ? '200px' : '140px',
-                fontSize: isLargeCenter ? '1rem' : '0.8rem',
+                padding: compact ? '4px 12px' : '10px 22px', // Reduced from 6/14 vertical padding
+                borderRadius: '16px',
+                marginBottom: compact ? '-10px' : '8px', // Reduced from -8/12
+                boxShadow: '1px 1px 12px rgba(0,0,0,0.1)',
+                maxWidth: isLargeCenter ? '220px' : '160px',
+                fontSize: isLargeCenter ? '1.1rem' : '0.95rem',
                 fontWeight: isLargeCenter ? '600' : 'normal',
                 textAlign: 'center',
                 position: 'relative',
                 order: 0,
-                zIndex: 2 // Ensure bubble stays on top of image
+                zIndex: 2
             }}>
                 {character.dialogue}
                 {/* Arrow logic: Always at the bottom pointing down */}
                 <div className="bubble-arrow" style={{
                     position: 'absolute',
-                    bottom: compact ? '-5px' : '-8px',
+                    bottom: compact ? '-6px' : '-9px', // Adjusted for reduced padding
                     left: '50%',
                     transform: 'translateX(-50%)',
-                    borderLeft: compact ? '5px solid transparent' : '10px solid transparent',
-                    borderRight: compact ? '5px solid transparent' : '10px solid transparent',
-                    borderTop: compact ? '5px solid white' : '10px solid white'
+                    borderLeft: compact ? '8px solid transparent' : '11px solid transparent',
+                    borderRight: compact ? '8px solid transparent' : '11px solid transparent',
+                    borderTop: compact ? '8px solid white' : '11px solid white'
                 }}></div>
             </div>
 
@@ -96,9 +95,10 @@ const CharacterOverlay = ({ character, position, delay = 0, compact = false }) =
                 alt={character.name}
                 style={{
                     width: '100%',
-                    height: isLargeCenter ? '180px' : (isCenter ? '140px' : '120px'),
+                    height: isLargeCenter ? '200px' : (isCenter ? '160px' : '140px'),
                     objectFit: 'cover',
-                    borderRadius: '12px',
+                    objectPosition: character.objectPosition || 'center',
+                    borderRadius: '14px',
                     filter: 'drop-shadow(2px 2px 12px rgba(0,0,0,0.3))',
                     border: '4px solid white'
                 }}

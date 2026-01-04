@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-const WindowFrame = ({ children, title }) => {
+const WindowFrame = ({ children, title, padding = '60px' }) => {
     return (
         <motion.div
             className="window-frame"
@@ -13,7 +13,7 @@ const WindowFrame = ({ children, title }) => {
                 boxShadow: '0 60px 120px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.5)', // Ultra-strong shadow
                 width: '100%',
                 maxWidth: '600px',
-                minHeight: '400px',
+                minHeight: '300px',
                 position: 'relative',
                 zIndex: 10,
                 display: 'flex',
@@ -34,12 +34,12 @@ const WindowFrame = ({ children, title }) => {
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#ffbd2e' }}></div>
                     <div style={{ width: '12px', height: '12px', borderRadius: '50%', background: '#27c93f' }}></div>
                 </div>
-                <h2 style={{ margin: 0, fontSize: '1.2rem', color: '#333' }}>{title}</h2>
+                <h2 style={{ margin: 0, fontSize: '1.35rem', color: '#333' }}>{title}</h2>
                 <div style={{ width: '40px' }}></div> {/* Spacer for centering */}
             </div>
 
             <div className="window-content" style={{
-                padding: '50px',
+                padding: padding,
                 flex: 1,
                 position: 'relative'
             }}>
