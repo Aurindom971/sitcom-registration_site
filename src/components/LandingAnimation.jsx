@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import partnerLogo from '../partner.JPG';
 
 const LandingAnimation = ({ onComplete }) => {
     const [phase, setPhase] = useState(0);
@@ -7,11 +8,12 @@ const LandingAnimation = ({ onComplete }) => {
     const [vhsOffset, setVhsOffset] = useState(0);
 
     useEffect(() => {
-        const timer1 = setTimeout(() => setPhase(1), 700);
-        const timer2 = setTimeout(() => setPhase(2), 2800);
-        const timer3 = setTimeout(() => {
+        const timer1 = setTimeout(() => setPhase(1), 300); // Intro Delay: 0.3s
+        const timer2 = setTimeout(() => setPhase(2), 3300); // SITCOM duration: 3.0s
+        const timer3 = setTimeout(() => setPhase(3), 6800); // Partner duration: 3.5s
+        const timer4 = setTimeout(() => {
             if (onComplete) onComplete();
-        }, 3500);
+        }, 7600); // Final Exit Transition: 0.8s
 
         // Random glitch intensity pulses
         const glitchInterval = setInterval(() => {
@@ -27,6 +29,7 @@ const LandingAnimation = ({ onComplete }) => {
             clearTimeout(timer1);
             clearTimeout(timer2);
             clearTimeout(timer3);
+            clearTimeout(timer4);
             clearInterval(glitchInterval);
             clearInterval(vhsInterval);
         };
@@ -455,6 +458,124 @@ const LandingAnimation = ({ onComplete }) => {
                                 />
                             </>
                         )}
+                    </motion.div>
+                )}
+
+                {phase === 2 && (
+                    <motion.div
+                        key="partner-animation"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0, filter: 'blur(20px)' }}
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            zIndex: 100,
+                            gap: '40px',
+                            textAlign: 'center'
+                        }}
+                    >
+                        {/* Heading at the top */}
+                        <motion.h2
+                            initial={{ y: -50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.2, duration: 0.8 }}
+                            style={{
+                                fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+                                color: '#1a1a1a',
+                                fontWeight: '800',
+                                letterSpacing: '2px',
+                                textTransform: 'uppercase',
+                                marginBottom: '20px',
+                                background: 'linear-gradient(45deg, #00f3ff, #ff00ff)',
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                filter: 'drop-shadow(0 0 10px rgba(0, 243, 255, 0.3))'
+                            }}
+                        >
+                            Our Industry Partner
+                        </motion.h2>
+
+                        {/* Logo at the center */}
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{
+                                duration: 1.5, // Natural PowerPoint-style fade duration
+                                ease: "easeInOut",
+                                delay: 0.5
+                            }}
+                            style={{
+                                width: 'min(300px, 60vw)',
+                                height: 'min(300px, 60vw)',
+                                background: 'white',
+                                borderRadius: '24px',
+                                padding: '20px',
+                                boxShadow: '0 20px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(0, 243, 255, 0.2)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                position: 'relative',
+                                overflow: 'hidden'
+                            }}
+                        >
+                            <img
+                                src={partnerLogo}
+                                alt="Kapidhwaj Innovations"
+                                style={{
+                                    maxWidth: '100%',
+                                    maxHeight: '100%',
+                                    objectFit: 'contain',
+                                    clipPath: 'inset(2px)' // Hides the black border in the source image
+                                }}
+                            />
+                            {/* Decorative scanline on logo */}
+                            <motion.div
+                                animate={{ top: ['-100%', '200%'] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                                style={{
+                                    position: 'absolute',
+                                    left: 0,
+                                    width: '100%',
+                                    height: '50%',
+                                    background: 'linear-gradient(to bottom, transparent, rgba(0, 243, 255, 0.1), transparent)',
+                                    pointerEvents: 'none'
+                                }}
+                            />
+                        </motion.div>
+
+                        {/* Name below the logo */}
+                        <motion.div
+                            initial={{ y: 50, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.8, duration: 0.8 }}
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '10px'
+                            }}
+                        >
+                            <span style={{
+                                fontSize: 'clamp(2rem, 6vw, 4.5rem)',
+                                color: '#333',
+                                fontWeight: '800',
+                                letterSpacing: '1px'
+                            }}>
+                                Kapidhwaj Innovations
+                            </span>
+                            <motion.div
+                                style={{
+                                    height: '3px',
+                                    background: 'linear-gradient(90deg, transparent, #00f3ff, #ff00ff, transparent)',
+                                    borderRadius: '2px'
+                                }}
+                                initial={{ width: 0 }}
+                                animate={{ width: '100%' }}
+                                transition={{ delay: 1.2, duration: 1 }}
+                            />
+                        </motion.div>
                     </motion.div>
                 )}
             </AnimatePresence>
